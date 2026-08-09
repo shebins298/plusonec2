@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 2 — Data Representation | Plus One Computer Applications</title>
+<meta name="description" content="Interactive study page for Chapter 2: Data Representation — number systems, conversions, binary addition, integer representation, floating point, character encoding and multimedia formats.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234a3df7'/%3E%3Ctext x='32' y='40' font-family='monospace' font-size='24' font-weight='700' text-anchor='middle' fill='%23ffffff'%3E01%3C/text%3E%3C/svg%3E">
+
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__title" href="#top">Ch. 2<small>Data Representation</small></a>
+    <nav class="chapter-nav" aria-label="Chapter sections">
+      <a href="#number-systems">Number Systems</a>
+      <a href="#conversions">Conversions</a>
+      <a href="#addition">Binary Addition</a>
+      <a href="#integers">Integer Repr.</a>
+      <a href="#floating-point">Floating Point</a>
+      <a href="#characters">Characters</a>
+      <a href="#multimedia">Multimedia</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div id="top"></div>
+<section class="hero">
+  <div class="hero__eyebrow">Plus One · Computer Applications (Commerce) · 2026 SCERT syllabus</div>
+  <h1>Chapter 2: Data Representation</h1>
+  <p class="hero__lede hero__quote">"There are 10 kinds of people in the world: those who understand binary numerals, and those who don't." <span>— Ian Stewart</span></p>
+  <p class="hero__lede">Computers can understand only binary digits — 0s and 1s. Every kind of data a computer handles — numbers, characters, images, audio, video — has to be converted into binary form before it can be stored, processed, or sent anywhere. This page walks through how that conversion works for each kind of data, with six interactive tools so you can test every rule on your own numbers instead of just reading someone else's worked example.</p>
+  <div class="hero__meta">
+    <span>7 topics</span>
+    <span>6 interactive widgets</span>
+    <span>21 self-check questions</span>
+  </div>
+</section>
+
+<div class="source-note">
+  <div class="source-note__box source-note__box--info">
+    <strong>Source note:</strong> the explanations, worked examples and tables on this page have been checked against the Chapter 2 "Data Representation" slide deck provided for this syllabus (kept in this repo at <code>docs/source/Chapter_2_Data_Representation.pptx</code>) and every conversion/decode result shown by the interactive widgets has been independently verified to match that deck's own worked examples. Where the deck doesn't cover a detail (noted inline), this page says so explicitly rather than presenting an outside assumption as syllabus content.
+  </div>
+</div>
+
+<!-- ================================================================= -->
+<!-- 2.2 NUMBER SYSTEMS -->
+<!-- ================================================================= -->
+<section class="topic" id="number-systems">
+  <div class="topic__head">
+    <span class="topic__tag">2.2 Number Systems</span>
+    <h2>Bases, digits, and place value</h2>
+  </div>
+
+  <div class="card">
+    <p>A <strong>number system</strong> is a systematic way of writing and representing numbers using a set of symbols or digits. Its <strong>base</strong> (or <em>radix</em>) is the number of symbols it uses — and every digit's value also depends on where it sits, which is why this is called a <strong>positional number system</strong>: the same digit means something different depending on its position.</p>
+
+    <div class="example-block">
+      <div class="example-block__label">The four number systems used in this chapter</div>
+      <table>
+        <thead><tr><th>System</th><th>Base</th><th>Digits used</th></tr></thead>
+        <tbody>
+          <tr><td>Decimal</td><td>10</td><td>0,1,2,3,4,5,6,7,8,9</td></tr>
+          <tr><td>Binary</td><td>2</td><td>0, 1</td></tr>
+          <tr><td>Octal</td><td>8</td><td>0,1,2,3,4,5,6,7</td></tr>
+          <tr><td>Hexadecimal</td><td>16</td><td>0–9 and A–F (A=10 … F=15)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>a. Decimal Number System (Base 10)</h3>
+    <p>From the Latin <em>decem</em>, meaning ten. Uses 10 symbols, 0–9 — the number system used in everyday counting.</p>
+    <div class="example-block">
+      <div class="example-block__label">Worked example — 534</div>
+      <pre>Place value:  10²   10¹   10⁰
+Digit:         5     3     4
+
+534 = 5×100 + 3×10 + 4×1
+    = 500 + 30 + 4
+    = 534</pre>
+    </div>
+    <p>The rightmost digit — the one with the smallest place value — is the <strong>LSD (Least Significant Digit)</strong>. The leftmost digit — the one with the largest place value — is the <strong>MSD (Most Significant Digit)</strong>.</p>
+
+    <h3>b. Binary Number System (Base 2)</h3>
+    <p>Uses only two symbols, 0 and 1. Each binary digit is called a <strong>bit</strong>.</p>
+    <div class="example-block">
+      <div class="example-block__label">Worked example — (1001011)₂</div>
+      <pre>2⁶  2⁵  2⁴  2³  2²  2¹  2⁰
+ 1   0   0   1   0   1   1
+
+= 1×64 + 0×32 + 0×16 + 1×8 + 0×4 + 1×2 + 1×1
+= 64 + 8 + 2 + 1
+= (75)₁₀</pre>
+    </div>
+    <p>The same idea gives bits their own names: <strong>LSB</strong> (Least Significant Bit) is the rightmost bit, <strong>MSB</strong> (Most Significant Bit) is the leftmost — a naming convention this page's Bit Flipper widget relies on directly, later in the chapter.</p>
+
+    <h3>c. Octal Number System (Base 8)</h3>
+    <p>Uses 8 digits, 0–7. More compact than binary, and converts easily to and from binary (see the grouping method in the next section). Commonly used for Unix file permissions, memory addresses, and in embedded systems/microcontrollers.</p>
+    <div class="example-block">
+      <div class="example-block__label">Worked example — (123)₈</div>
+      <pre>8²  8¹  8⁰
+ 1   2   3
+
+= 1×64 + 2×8 + 3×1
+= 64 + 16 + 3
+= (83)₁₀</pre>
+    </div>
+
+    <h3>d. Hexadecimal Number System (Base 16)</h3>
+    <p>Uses 16 symbols: digits 0–9, then letters A–F standing in for 10–15.</p>
+    <div class="example-block">
+      <table class="center-table">
+        <tbody>
+          <tr><th scope="row">Decimal</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr>
+          <tr><th scope="row">Hex</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="example-block">
+      <div class="example-block__label">Worked example — (258)₁₆</div>
+      <pre>16²  16¹  16⁰
+ 2    5    8
+
+= 2×256 + 5×16 + 8×1
+= 512 + 80 + 8
+= (600)₁₀</pre>
+    </div>
+
+    <h3>Why binary, specifically?</h3>
+    <p>Computers are built from millions of transistors — tiny electronic switches with only two stable states: <strong>ON</strong> (high voltage, represented as 1) and <strong>OFF</strong> (low voltage, represented as 0). That two-state nature makes binary simple, reliable, and resistant to error — unlike decimal, which would need ten precise, distinguishable voltage levels that ordinary electrical noise could easily blur together.</p>
+
+    <p>Because of this, binary shows up everywhere in computing: as the native language computers use for data and instructions, in the digital signals of electronic circuits, as the format data is actually stored in, and even in encryption, where information is secured by converting it into binary form.</p>
+
+    <p>The digit × base<sup>power</sup> expansion used in every example above is exactly what the <strong>Base Converter</strong> widget in the next section automates for you in either direction, and it's the same logic the ASCII widget later uses to show a character's codes.</p>
+  </div>
+
+  <div class="quiz-strip" data-quiz>
+    <div class="quiz-strip__title">Quick check — Number Systems</div>
+    <div class="quiz-strip__data" hidden>
+    [
+      {
+        "type": "mcq",
+        "prompt": "Which is the correct set of allowed digits for the octal number system?",
+        "options": ["0–7", "0–9", "0–9 and A–F", "0–1"],
+        "correctIndex": 0,
+        "explanation": "Octal is base 8, so it uses exactly 8 digit symbols: 0 through 7. Decimal (base 10) uses 0–9, hexadecimal (base 16) uses 0–9 and A–F, and binary (base 2) uses only 0–1."
+      },
+      {
+        "type": "numeric",
+        "prompt": "In the decimal number 3782, what is the place value contributed by the digit 7?",
+        "accept": ["700"],
+        "explanation": "7 sits in the hundreds position (10²). Its contribution is 7 × 10² = 7 × 100 = 700."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Binary 1101 equals which decimal value?",
+        "options": ["11", "13", "14", "15"],
+        "correctIndex": 1,
+        "explanation": "1101₂ = 1×2³ + 1×2² + 0×2¹ + 1×2⁰ = 8 + 4 + 0 + 1 = 13."
+      }
+    ]
+    </div>
+    <div class="quiz-strip__questions"></div>
+  </div>
+</section>
+
+<!-- ================================================================= -->
+<!-- 2.3 NUMBER SYSTEM CONVERSIONS -->
+<!-- ================================================================= -->
+<section class="topic" id="conversions">
+  <div class="topic__head">
+    <span class="topic__tag">2.3 Number System Conversions</span>
+    <h2>Converting between bases</h2>
+  </div>
+
+  <div class="card">
+    <h3>2.3.1 Decimal → Binary Conversion</h3>
+    <p>Divide the number repeatedly by 2, noting each remainder, until the quotient reaches 0. Reading the remainders <strong>bottom → top</strong> gives the binary answer.</p>
+    <div class="example-block">
+      <div class="example-block__label">Worked example — convert (35)₁₀ to binary</div>
+      <pre>2 | 35
+2 | 17   1   (LSB)
+2 |  8   1
+2 |  4   0
+2 |  2   0
+2 |  1   0
+  |  0   1   (MSB)
+
+(35)₁₀ = (100011)₂</pre>
+    </div>
+
+    <h3>2.3.2 Binary → Decimal Conversion</h3>
+    <p>Multiply each bit by its weighted power of 2, then add up all the products.</p>
+    <div class="example-block">
+      <div class="example-block__label">Worked example — convert (101101)₂ to decimal</div>
+      <pre>2⁵  2⁴  2³  2²  2¹  2⁰
+ 1   0   1   1   0   1
+
+= 32+0+8+4+0+1
+= (45)₁₀</pre>
+    </div>
+    <p>The <strong>Base Converter</strong> widget below automates both of these directions for any decimal number and binary, octal or hex.</p>
+
+    <h3>2.3.3 / 2.3.4 Octal ↔ Binary Conversion (grouping method)</h3>
+    <p>Octal and binary convert directly into each other without going through decimal at all, because each octal digit corresponds to <strong>exactly 3 binary bits</strong> (since 2³ = 8). Convert each octal digit to its 3-bit binary group (or the reverse: split the binary into groups of 3 from the right, and read off each group's octal digit).</p>
+    <div class="example-block">
+      <div class="example-block__label">Octal → Binary — (523)₈</div>
+      <pre>Octal digit:   5     2     3
+3-bit group: 101   010   011
+
+(523)₈ = (101010011)₂</pre>
+    </div>
+    <div class="example-block">
+      <div class="example-block__label">Binary → Octal — (101101010)₂</div>
+      <pre>Group in 3s (from the right):  101   101   010
+Octal digit:                     5     5     2
+
+(101101010)₂ = (552)₈</pre>
+    </div>
+
+    <h3>2.3.5 / 2.3.6 Hexadecimal ↔ Binary Conversion (grouping method)</h3>
+    <p>The same shortcut works for hex, but with groups of <strong>4 binary bits</strong> per digit (since 2⁴ = 16).</p>
+    <div class="example-block">
+      <div class="example-block__label">Hex → Binary — (9AF)₁₆</div>
+      <pre>Hex digit:    9      A      F
+4-bit group: 1001   1010   1111
+
+(9AF)₁₆ = (100110101111)₂</pre>
+    </div>
+    <div class="example-block">
+      <div class="example-block__label">Binary → Hex — (100101111011)₂</div>
+      <pre>Group in 4s (from the right):  1001   0111   1011
+Hex digit:                        9      7      B
+
+(100101111011)₂ = (97B)₁₆</pre>
+    </div>
+    <p>The Base Converter widget below covers decimal↔base conversions interactively; the grouping shortcut above is worth doing by hand since it's usually faster than converting through decimal when both systems are powers of 2.</p>
+  </div>
+
+  <div class="card" id="base-converter-card">
+    <div class="card__title"><h3>Widget · Base Converter</h3></div>
+    <div class="seg" role="tablist" aria-label="Conversion direction">
+      <button class="btn--seg" type="button" id="bc-mode-d2b" role="tab" aria-selected="true">Decimal → Base</button>
+      <button class="btn--seg" type="button" id="bc-mode-b2d" role="tab" aria-selected="false">Base → Decimal</button>
+    </div>
+
+    <div id="bc-panel-d2b">
+      <div class="field-row" style="margin-top:1rem;">
+        <div class="field">
+          <label for="bc-decimal-input">Decimal number</label>
+          <input class="mono-input" type="text" inputmode="numeric" id="bc-decimal-input" value="35" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="bc-target-base">Target base</label>
+          <select id="bc-target-base">
+            <option value="2">Binary (base 2)</option>
+            <option value="8">Octal (base 8)</option>
+            <option value="16">Hexadecimal (base 16)</option>
+          </select>
+        </div>
+      </div>
+      <p class="error-msg" id="bc-d2b-error" role="alert"></p>
+      <div class="ladder" id="bc-ladder" aria-live="polite"></div>
+      <div class="result-banner" id="bc-d2b-result" hidden>
+        <span class="result-banner__label">Result</span>
+        <span class="result-banner__value" id="bc-d2b-result-value"></span>
+      </div>
+    </div>
+
+    <div id="bc-panel-b2d" hidden>
+      <div class="field-row" style="margin-top:1rem;">
+        <div class="field">
+          <label for="bc-source-base">Source base</label>
+          <select id="bc-source-base">
+            <option value="2">Binary (base 2)</option>
+            <option value="8">Octal (base 8)</option>
+            <option value="16">Hexadecimal (base 16)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="bc-base-input">Number in that base</label>
+          <input class="mono-input" type="text" id="bc-base-input" value="101101" autocomplete="off">
+        </div>
+      </div>
+      <p class="error-msg" id="bc-b2d-error" role="alert"></p>
+      <div class="expansion" id="bc-expansion" aria-live="polite"></div>
+      <div class="result-banner" id="bc-b2d-result" hidden>
+        <span class="result-banner__label">Result</span>
+        <span class="result-banner__value" id="bc-b2d-result-value"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-strip" data-quiz>
+    <div class="quiz-strip__title">Quick check — Conversions</div>
+    <div class="quiz-strip__data" hidden>
+    [
+      {
+        "type": "numeric",
+        "prompt": "Convert decimal 45 to binary using the divide-by-2 method. What is the result?",
+        "accept": ["101101"],
+        "explanation": "45÷2=22 r1, 22÷2=11 r0, 11÷2=5 r1, 5÷2=2 r1, 2÷2=1 r0, 1÷2=0 r1. Reading remainders bottom to top: 101101. Check: 101101₂ = 32+8+4+1 = 45."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is hexadecimal 2F equal to in decimal?",
+        "options": ["45", "47", "31", "79"],
+        "correctIndex": 1,
+        "explanation": "2F₁₆ = 2×16¹ + 15×16⁰ = 32 + 15 = 47. (F represents 15 in hexadecimal.)"
+      },
+      {
+        "type": "numeric",
+        "prompt": "Convert octal 17 to decimal.",
+        "accept": ["15"],
+        "explanation": "17₈ = 1×8¹ + 7×8⁰ = 8 + 7 = 15."
+      }
+    ]
+    </div>
+    <div class="quiz-strip__questions"></div>
+  </div>
+</section>
+
+<!-- ================================================================= -->
+<!-- 2.4 BINARY ADDITION -->
+<!-- ================================================================= -->
+<section class="topic" id="addition">
+  <div class="topic__head">
+    <span class="topic__tag">2.4 Binary Addition</span>
+    <h2>Adding bit by bit, with carries</h2>
+  </div>
+
+  <div class="card">
+    <p>Computers add binary numbers the same way we add decimal numbers by hand — column by column from the right — just in base 2 instead of base 10.</p>
+    <div class="example-block">
+      <div class="example-block__label">Addition rule for a single column</div>
+      <table class="center-table">
+        <thead><tr><th>A</th><th>B</th><th>Sum</th><th>Carry</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>That covers two bits at a time; once a column already has an incoming carry, there's a third bit to add. 1 + 1 + 1 (the incoming carry) = 3 = <code>11</code> in binary, so the rule extends the same way it does for decimal: write down the total <em>modulo 2</em>, and carry 1 into the next column to the left.</p>
+
+    <div class="example-block">
+      <div class="example-block__label">Worked example — 1101₂ + 0011₂</div>
+      <pre>  carry:  1 1
+           1 1 0 1
+        +  0 0 1 1
+        -----------
+           1 0 0 0 0
+
+col 0 (rightmost): 1+1       = 0, carry 1
+col 1:              0+1+1     = 0, carry 1
+col 2:              1+0+1     = 0, carry 1
+col 3 (leftmost):   1+0+1     = 0, carry 1
+final carry out of col 3 becomes an extra leading bit → 1 0 0 0 0
+
+Check: 1101₂ = 13, 0011₂ = 3, 13 + 3 = 16, and 10000₂ = 16. ✓</pre>
+    </div>
+    <div class="example-block">
+      <div class="example-block__label">A second example, with no overflow — 0101₂ + 0010₂</div>
+      <pre>            0 1 0 1
+          + 0 0 1 0
+          ---------
+            0 1 1 1
+
+Check: 0101₂ = 5, 0010₂ = 2, 5 + 2 = 7, and 0111₂ = 4+2+1 = 7. ✓ No carry out of the leftmost column here, so the result fits in the same number of bits as the inputs — contrast this with the example above, where the final carry needed an extra bit.</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card__title"><h3>Widget · Binary Addition Simulator</h3></div>
+    <div class="field-row">
+      <div class="field">
+        <label for="add-input-a">Number A (binary)</label>
+        <input class="mono-input" type="text" id="add-input-a" value="1101" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="add-input-b">Number B (binary)</label>
+        <input class="mono-input" type="text" id="add-input-b" value="0011" autocomplete="off">
+      </div>
+    </div>
+    <p class="error-msg" id="add-error" role="alert"></p>
+    <div class="add-grid" id="add-grid" aria-live="polite"></div>
+    <div class="result-banner" id="add-result" hidden>
+      <span class="result-banner__label">Sum</span>
+      <span class="result-banner__value" id="add-result-value"></span>
+    </div>
+  </div>
+
+  <div class="quiz-strip" data-quiz>
+    <div class="quiz-strip__title">Quick check — Binary Addition</div>
+    <div class="quiz-strip__data" hidden>
+    [
+      {
+        "type": "numeric",
+        "prompt": "Add the binary numbers 111 and 011. What is the result (in binary)?",
+        "accept": ["1010"],
+        "explanation": "Column 0: 1+1=10 → write 0, carry 1. Column 1: 1+1+1=11 → write 1, carry 1. Column 2: 1+0+1=10 → write 0, carry 1. Final carry prepends → 1010. Check: 111₂=7, 011₂=3, 7+3=10, and 1010₂=8+2=10. ✓"
+      },
+      {
+        "type": "mcq",
+        "prompt": "When adding binary digits 1 and 1 with no incoming carry, what happens in that column?",
+        "options": ["Write 0, carry 1 into the next column", "Write 1, carry 1 into the next column", "Write 1, carry 0", "Write 0, carry 0"],
+        "correctIndex": 0,
+        "explanation": "1+1 = 2 in decimal, which is '10' in binary — so you write 0 in the current column and carry 1 into the column to the left."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Adding two 4-bit binary numbers sometimes produces a 5-bit result. What does that extra 5th bit represent?",
+        "options": ["The final carry-out from the leftmost column", "An error in the addition", "The sign of the result", "Nothing — it should be discarded"],
+        "correctIndex": 0,
+        "explanation": "When adding the leftmost (most significant) column produces a carry, that carry becomes an extra bit placed in front of the result. It's the final carry-out, showing the true sum needs one more bit than either original number."
+      }
+    ]
+    </div>
+    <div class="quiz-strip__questions"></div>
+  </div>
+</section>
+
+<!-- ================================================================= -->
+<!-- 2.5 INTEGER REPRESENTATION -->
+<!-- ================================================================= -->
+<section class="topic" id="integers">
+  <div class="topic__head">
+    <span class="topic__tag">2.5 Integer Representation</span>
+    <h2>Storing signed integers in fixed-width bits</h2>
+  </div>
+
+  <div class="card">
+    <p>A <strong>word</strong> is a fixed-size group of bits that a processor handles as a single unit; the <strong>word length</strong> is how many bits are in that word (commonly 8, 16, 32 or 64). This page works in 8-bit words throughout, so every example below is 8 bits wide.</p>
+    <p>Ordinary binary can only represent non-negative numbers. To store negative integers too, the leftmost bit — the <strong>most significant bit (MSB)</strong> — is used to signal the sign, while the rest of the word encodes magnitude. There are three schemes for exactly how that happens, and they don't always agree on what a given bit pattern means.</p>
+
+    <h3>a. Sign and Magnitude Representation</h3>
+    <p>The simplest scheme: the MSB is purely a sign flag (0 = positive, 1 = negative), and the remaining 7 bits are the magnitude (absolute value), read as ordinary unsigned binary.</p>
+    <div class="example-block">
+      <div class="example-block__label">Worked example — represent −25 using 8 bits</div>
+      <pre>1. Magnitude of 25 in 7-bit binary  →  0011001
+2. Sign of the number               →  Negative (MSB = 1)
+3. Combine sign + magnitude         →  1 0011001
+
+Result:  −25  =  10011001</pre>
+    </div>
+
+    <h3>b. 1's Complement Representation</h3>
+    <p>Positive numbers (MSB 0) are stored as plain binary. A negative number is formed by writing the positive magnitude in 8-bit binary (its "true form") and then flipping every bit — every 0 becomes 1, every 1 becomes 0.</p>
+    <div class="example-block">
+      <div class="example-block__label">Worked example — represent −87 in 1's complement form</div>
+      <pre>8-bit binary of 87        =  01010111
+1's complement of −87     =  10101000</pre>
+    </div>
+
+    <h3>c. 2's Complement Representation</h3>
+    <p>The method actual computer hardware uses — simple, efficient, and it avoids the problems the other two methods have (see the edge cases below). It's formed in three steps: write the 8-bit binary of the value, take its 1's complement, then add 1.</p>
+    <div class="example-block">
+      <div class="example-block__label">Worked example — represent −25 in 2's complement form</div>
+      <pre>8-bit binary of 25   =  00011001
+1's complement       =  11100110
+                            +  1
+2's complement        =  11100111</pre>
+    </div>
+    <p>To decode a 2's complement pattern back to a value without reversing all three steps, there's a shortcut: give the MSB a <em>negative</em> place value of −2⁷ = −128 and sum every bit normally, exactly like ordinary place-value expansion. It gives the same answer as invert-then-add-1, every time:</p>
+    <div class="example-block">
+      <pre>11100111 = (−128)×1 + 64×1 + 32×1 + 16×0 + 8×0 + 4×1 + 2×1 + 1×1
+         = −128 + 64+32+4+2+1
+         = −25  ✓ matches the worked example above</pre>
+    </div>
+    <p>Try the same 8 bits under all three schemes side by side in the <strong>Bit Flipper</strong> widget below — the same pattern generally decodes to three different values.</p>
+
+    <h3>Two edge cases worth knowing</h3>
+    <p>These aren't called out explicitly in the slides above, but they follow directly from the three decoding rules, and they're worth being able to spot:</p>
+    <p><strong>Two representations of zero.</strong> Sign & Magnitude has both <code>00000000</code> (+0) and <code>10000000</code> (−0). 1's Complement has both <code>00000000</code> (+0) and <code>11111111</code> (−0). 2's Complement has only <em>one</em> zero, <code>00000000</code> — this is one reason real processors use 2's complement, since a "negative zero" that behaves differently from zero in comparisons is a source of bugs.</p>
+    <p><strong>Asymmetric range in 2's Complement.</strong> Because there's no wasted second zero pattern, 8-bit 2's Complement can represent one more negative number than positive: from −128 up to +127. The pattern <code>10000000</code> is a valid, meaningful value (−128) in 2's Complement, even though the number +128 itself cannot be stored in 8-bit 2's Complement at all — try it in the widget below.</p>
+  </div>
+
+  <div class="card">
+    <div class="card__title"><h3>Widget · Bit Flipper</h3></div>
+    <p>Click any switch to flip that bit. The sign bit (MSB, leftmost) is outlined in red-orange. Watch how the same 8 bits are read three different ways below.</p>
+    <div class="preset-row">
+      <button class="btn" type="button" data-preset="00000000">00000000 (all 0)</button>
+      <button class="btn" type="button" data-preset="01111111">01111111 (127)</button>
+      <button class="btn" type="button" data-preset="10000000">10000000</button>
+      <button class="btn" type="button" data-preset="11111111">11111111 (all 1)</button>
+    </div>
+    <div class="bit-row" id="bit-row"></div>
+    <div class="decode-grid" id="decode-grid"></div>
+  </div>
+
+  <div class="quiz-strip" data-quiz>
+    <div class="quiz-strip__title">Quick check — Integer Representation</div>
+    <div class="quiz-strip__data" hidden>
+    [
+      {
+        "type": "mcq",
+        "prompt": "In 8-bit Sign & Magnitude, what decimal value does 10000101 represent?",
+        "options": ["−5", "5", "133", "−133"],
+        "correctIndex": 0,
+        "explanation": "MSB = 1 signals negative. The remaining 7 bits, 0000101, equal 5 in decimal, so the value is −5."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which representations can encode both a '+0' and a '−0' (a dual representation of zero)?",
+        "options": ["Only 2's Complement", "Sign & Magnitude and 1's Complement, but not 2's Complement", "All three schemes", "None of them"],
+        "correctIndex": 1,
+        "explanation": "Sign & Magnitude has 00000000 (+0) and 10000000 (−0); 1's Complement has 00000000 (+0) and 11111111 (−0). 2's Complement has only one zero pattern, 00000000 — this is one reason real hardware uses 2's Complement."
+      },
+      {
+        "type": "numeric",
+        "prompt": "What decimal value does the 8-bit Two's Complement pattern 11111110 represent?",
+        "accept": ["-2"],
+        "explanation": "Weighted sum: (−128)×1 + 64×1 + 32×1 + 16×1 + 8×1 + 4×1 + 2×1 + 0×0 = −128 + 126 = −2."
+      }
+    ]
+    </div>
+    <div class="quiz-strip__questions"></div>
+  </div>
+</section>
+
+<!-- ================================================================= -->
+<!-- 2.5.x FLOATING POINT (conceptual, no textbook to cross-check exact bit widths) -->
+<!-- ================================================================= -->
+<section class="topic" id="floating-point">
+  <div class="topic__head">
+    <span class="topic__tag">2.5 Integer &amp; Real Number Representation</span>
+    <h2>Floating point representation</h2>
+  </div>
+
+  <div class="card">
+    <p>A number with both an integer part <em>and</em> a fractional part — like 13.4 — is a <strong>floating-point number</strong>. Rather than storing it as-is, it's normalized and split into two parts:</p>
+    <div class="example-block">
+      <pre>[ Mantissa ] [ Exponent ]</pre>
+    </div>
+    <ul>
+      <li><strong>Mantissa</strong> — the actual number, normalized (e.g. 13.4 → 0.134).</li>
+      <li><strong>Exponent</strong> — how many places the point should move — a power of 2 in the binary representation an actual computer stores.</li>
+    </ul>
+    <div class="example-block">
+      <div class="example-block__label">Worked example — 13.4</div>
+      <pre>13.4  =  0.134 × 10²
+
+mantissa = 134
+exponent = 2</pre>
+    </div>
+    <p>This example normalizes in decimal (base 10) because it's the easiest way to see the idea: separate the number's significant digits (the mantissa, 134) from its scale (the exponent, 2 — meaning "shift the point 2 places"). Reversing the shift, 0.134 × 10² = 13.4, recovers the original number. Inside a computer, the same mantissa/exponent split is applied in binary rather than decimal, which is why the exponent is described as a power of 2 — but the underlying idea, separating significant digits from scale, is identical either way.</p>
+  </div>
+
+  <div class="quiz-strip" data-quiz>
+    <div class="quiz-strip__title">Quick check — Floating Point</div>
+    <div class="quiz-strip__data" hidden>
+    [
+      {
+        "type": "numeric",
+        "prompt": "Using the worked example 13.4 = 0.134 × 10², what is the mantissa?",
+        "accept": ["134"],
+        "explanation": "Normalizing 13.4 gives 0.134 × 10². The mantissa is the actual (normalized) number, 134; the exponent — how many places the point shifts — is 2."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In a mantissa–exponent (floating-point) representation, what does the exponent indicate?",
+        "options": ["How many places the point should shift — the number's scale", "The sign of the number", "The number of significant digits stored", "The base of the number system being used"],
+        "correctIndex": 0,
+        "explanation": "The exponent records the scale of the number — how many places the point needs to move to turn the normalized mantissa back into the original value. In 13.4 = 0.134 × 10², exponent 2 means the point moves 2 places to the right to recover 13.4."
+      }
+    ]
+    </div>
+    <div class="quiz-strip__questions"></div>
+  </div>
+</section>
+
+<!-- ================================================================= -->
+<!-- 2.6 CHARACTER REPRESENTATION -->
+<!-- ================================================================= -->
+<section class="topic" id="characters">
+  <div class="topic__head">
+    <span class="topic__tag">2.6 Character Representation</span>
+    <h2>Encoding text as numbers</h2>
+  </div>
+
+  <div class="card">
+    <p>Computers only store numbers, so every character — letters, digits, punctuation, control signals — is assigned a numeric code.</p>
+
+    <h3>a. ASCII</h3>
+    <p><strong>ASCII</strong> — American Standard Code for Information Interchange — represents letters, numbers and symbols using 7-bit binary codes, giving 128 possible characters. It was published in 1963 by the ASA (later renamed ANSI). A character's ASCII code can be written in decimal, binary, or hexadecimal exactly like any other number, using the same conversion rules from earlier in this chapter.</p>
+    <div class="example-block">
+      <pre>'A' → decimal 65 → binary 01000001 → hex 41</pre>
+    </div>
+    <p>Codes 0–31 (and 127) are non-printing <strong>control characters</strong> — signals like "new line" or "tab" rather than visible symbols. Codes 32–126 are printable: space, digits, punctuation, and upper/lowercase letters.</p>
+    <div class="example-block">
+      <div class="example-block__label">ASCII — merits and demerits</div>
+      <pre>Merits:     Simple and efficient
+            Widely supported and compatible
+
+Demerits:   Limited character set
+            Doesn't support multiple languages or special symbols well</pre>
+    </div>
+    <p>To cover more characters than 7-bit ASCII's 128 codes allow, IBM's <strong>Extended ASCII</strong> uses a full 8 bits, giving 256 possible characters — enough for accented European letters, but still not a global solution.</p>
+
+    <h3>b. Unicode</h3>
+    <p>Neither 7-bit ASCII nor 8-bit Extended ASCII can represent all the characters and scripts used around the world, so <strong>Unicode</strong> was introduced to fix this. It's maintained by the Unicode Consortium. Unicode originally used 16 bits (the UCS-2 encoding, 65,536 characters); today it supports up to 1,114,112 code points, represented using UTF-8, UTF-16 or UTF-32.</p>
+    <p>Unicode's key benefits: universal language support, platform independence, simplified application development, and efficient data sharing.</p>
+
+    <div class="example-block">
+      <div class="example-block__label">Comparing character encodings</div>
+      <table>
+        <thead><tr><th>Encoding</th><th>Bits</th><th>Character range</th><th>Used for</th><th>Limitation</th></tr></thead>
+        <tbody>
+          <tr><td>ASCII</td><td>7 bits</td><td>2⁷ = 128</td><td>English text, control codes</td><td>Limited characters</td></tr>
+          <tr><td>Extended ASCII</td><td>8 bits</td><td>2⁸ = 256</td><td>European characters</td><td>Not global</td></tr>
+          <tr><td>Unicode</td><td>16–32 bits</td><td>2⁸ to 2³²</td><td>Global language support</td><td>Requires more storage</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card__title"><h3>Widget · Live ASCII Lookup</h3></div>
+    <div class="ascii-controls">
+      <div class="field">
+        <label for="ascii-search">Search by character or code</label>
+        <input class="mono-input" type="text" id="ascii-search" placeholder="e.g. A, 65, or 41" autocomplete="off">
+      </div>
+    </div>
+    <div class="ascii-table-wrap">
+      <table class="ascii-table">
+        <thead><tr><th>Char</th><th>Dec</th><th>Bin</th><th>Hex</th></tr></thead>
+        <tbody id="ascii-table-body"></tbody>
+      </table>
+    </div>
+    <div class="ascii-detail" id="ascii-detail" hidden>
+      <div class="ascii-detail__item"><div class="ascii-detail__label">Character</div><div class="ascii-detail__value" id="ascii-detail-char"></div></div>
+      <div class="ascii-detail__item"><div class="ascii-detail__label">Decimal</div><div class="ascii-detail__value" id="ascii-detail-dec"></div></div>
+      <div class="ascii-detail__item"><div class="ascii-detail__label">Binary</div><div class="ascii-detail__value" id="ascii-detail-bin"></div></div>
+      <div class="ascii-detail__item"><div class="ascii-detail__label">Hex</div><div class="ascii-detail__value" id="ascii-detail-hex"></div></div>
+    </div>
+
+    <h3 style="margin-top:1.4rem;">Text → ASCII encoder</h3>
+    <div class="field">
+      <label for="ascii-encoder-input">Type some text</label>
+      <input type="text" id="ascii-encoder-input" placeholder="Type here…" value="Hi!" autocomplete="off">
+    </div>
+    <div class="encoder-output" id="ascii-encoder-output" aria-live="polite"></div>
+  </div>
+
+  <div class="quiz-strip" data-quiz>
+    <div class="quiz-strip__title">Quick check — Character Representation</div>
+    <div class="quiz-strip__data" hidden>
+    [
+      {
+        "type": "numeric",
+        "prompt": "What is the decimal ASCII code for the uppercase letter 'A'?",
+        "accept": ["65"],
+        "explanation": "'A' is decimal 65 (binary 01000001, hex 41) in the ASCII table. Lowercase letters sit 32 higher — 'a' is 97 — because exactly one extra bit (the 32's place) is set between the uppercase and lowercase blocks."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What character does hexadecimal 41 represent in the ASCII table?",
+        "options": ["'A'", "'a'", "'0'", "'!'"],
+        "correctIndex": 0,
+        "explanation": "Hex 41 = 4×16 + 1 = 65 in decimal, which is the ASCII code for uppercase 'A'."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which of these best describes why Unicode exists alongside ASCII?",
+        "options": ["ASCII's 128 codes (7 bits) can only cover English letters, digits and basic symbols, so Unicode was created to represent characters from many more scripts and languages, plus symbols and emoji", "Unicode replaces binary with decimal internally", "Unicode is only used for storing images", "ASCII and Unicode are unrelated, incompatible standards"],
+        "correctIndex": 0,
+        "explanation": "ASCII's 7-bit code only has room for 128 characters — enough for English text and basic symbols, but not for the world's other scripts. Unicode was created to give every character, from every language in use (plus symbols and emoji), its own unique code, while keeping ASCII's first 128 codes unchanged."
+      }
+    ]
+    </div>
+    <div class="quiz-strip__questions"></div>
+  </div>
+</section>
+
+<!-- ================================================================= -->
+<!-- 2.7 MULTIMEDIA FILE FORMATS -->
+<!-- ================================================================= -->
+<section class="topic" id="multimedia">
+  <div class="topic__head">
+    <span class="topic__tag">2.7 Multimedia File Formats</span>
+    <h2>Representing images, audio and video</h2>
+  </div>
+
+  <div class="card">
+    <h3>2.7.1 Image File Formats</h3>
+    <p>A digital image is stored as a grid of <strong>pixels</strong> (picture elements) — the smallest single point in the image, each holding its own colour value. Each pixel's colour uses the RGB model (Red, Green, Blue), each channel 0–255, stored in 24 bits total. That's why standard 24-bit colour can produce roughly 16.7 million possible colours (256 × 256 × 256).</p>
+    <div class="example-block">
+      <pre>Pure red   → R 255, G 0,   B 0
+Pure white → R 255, G 255, B 255
+Pure black → R 0,   G 0,   B 0
+Mid grey   → R 128, G 128, B 128 (equal, medium values on all three channels)</pre>
+    </div>
+    <p>A digital image file has three parts:</p>
+    <div class="example-block">
+      <pre>Header:     File format, width, height, colour depth, compression type
+Pixel Data: The actual binary data representing pixel colour values
+Metadata:   Extra details — date, camera settings, author, GPS location</pre>
+    </div>
+    <p><strong>Lossy</strong> compression removes some data to shrink file size (that data can't be recovered). <strong>Lossless</strong> compression shrinks file size with no data lost.</p>
+    <div class="example-block">
+      <div class="example-block__label">Popular image file formats</div>
+      <table>
+        <thead><tr><th>Format</th><th>Compression</th><th>Quality</th><th>File size</th><th>Common use</th></tr></thead>
+        <tbody>
+          <tr><td>BMP</td><td>Uncompressed</td><td>Excellent</td><td>Very large</td><td>Windows apps, raw storage</td></tr>
+          <tr><td>JPEG</td><td>Lossy</td><td>Good</td><td>Small</td><td>Photos, web images</td></tr>
+          <tr><td>PNG</td><td>Lossless</td><td>Excellent</td><td>Moderate</td><td>Logos, transparent images</td></tr>
+          <tr><td>GIF</td><td>Lossless (256 colours)</td><td>Low</td><td>Small</td><td>Web animations, memes</td></tr>
+          <tr><td>TIFF</td><td>Lossy / Lossless</td><td>Excellent</td><td>Very large</td><td>Professional design</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card__title"><h3>Widget · RGB Pixel Grid</h3></div>
+    <p>Click a pixel to select it, then use the sliders to change its Red, Green and Blue values live. "Fill all" applies the current slider values to every pixel in the grid.</p>
+    <div class="pixel-widget">
+      <div class="pixel-grid" id="pixel-grid" role="group" aria-label="Pixel grid"></div>
+      <div class="pixel-readout">
+        <div class="pixel-swatch" id="pixel-swatch"></div>
+        <div class="pixel-readout__codes" id="pixel-readout-codes"></div>
+      </div>
+      <div class="pixel-sliders">
+        <div class="slider-field slider-field--r">
+          <label for="pixel-r">R</label>
+          <input type="range" min="0" max="255" value="255" id="pixel-r">
+          <output for="pixel-r" id="pixel-r-out">255</output>
+        </div>
+        <div class="slider-field slider-field--g">
+          <label for="pixel-g">G</label>
+          <input type="range" min="0" max="255" value="0" id="pixel-g">
+          <output for="pixel-g" id="pixel-g-out">0</output>
+        </div>
+        <div class="slider-field slider-field--b">
+          <label for="pixel-b">B</label>
+          <input type="range" min="0" max="255" value="0" id="pixel-b">
+          <output for="pixel-b" id="pixel-b-out">0</output>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn--primary" type="button" id="pixel-fill-all">Fill all pixels with this colour</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>2.7.2 Audio File Formats</h3>
+    <p>Analog sound waves are converted into digital signals through a process called <strong>digitization</strong>: the wave's amplitude is <strong>sampled</strong> — measured — many times per second, and each measurement is rounded to the nearest value the format can store and saved as a number. Two settings control quality:</p>
+    <ul>
+      <li><strong>Sample rate</strong> — how many samples are taken per second, measured in Hz. CD-quality audio uses 44,100 Hz (44.1 kHz): the wave is measured 44,100 times every second.</li>
+      <li><strong>Bit depth</strong> — how many bits are used to store each individual sample, controlling how finely each measurement can be recorded.</li>
+    </ul>
+    <p>Higher sample rates and bit depths capture the original wave more accurately, at the cost of a larger file.</p>
+    <div class="example-block">
+      <div class="example-block__label">Audio file formats</div>
+      <table>
+        <thead><tr><th>Format</th><th>Compression</th><th>Quality</th><th>Common uses</th></tr></thead>
+        <tbody>
+          <tr><td>WAV</td><td>Uncompressed</td><td>Excellent</td><td>Studio recording, editing</td></tr>
+          <tr><td>MP3</td><td>Lossy</td><td>Good</td><td>Music, streaming</td></tr>
+          <tr><td>AAC</td><td>Lossy</td><td>Better than MP3</td><td>Streaming, Apple devices</td></tr>
+          <tr><td>FLAC</td><td>Lossless</td><td>Excellent</td><td>Archiving, audio editing</td></tr>
+          <tr><td>OGG</td><td>Lossy</td><td>Good</td><td>Gaming, streaming</td></tr>
+          <tr><td>WMA</td><td>Lossy / Lossless</td><td>Good–Excellent</td><td>Windows apps</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>2.7.3 Video File Formats</h3>
+    <p>A video is a fast sequence of still images (<strong>frames</strong>), usually shown at 24–60 fps (frames per second), synced with audio. The higher the frame rate, the smoother the motion appears.</p>
+    <div class="example-block">
+      <div class="example-block__label">Video file formats</div>
+      <table>
+        <thead><tr><th>Format</th><th>Developer</th><th>Quality</th><th>Compatibility</th><th>Common uses</th></tr></thead>
+        <tbody>
+          <tr><td>AVI</td><td>Microsoft</td><td>Excellent</td><td>Windows</td><td>Editing, archiving</td></tr>
+          <tr><td>MP4</td><td>MPEG</td><td>High</td><td>Universal</td><td>Web, mobile, streaming</td></tr>
+          <tr><td>MKV</td><td>Open Source</td><td>Very high</td><td>Wide software support</td><td>Movies, HD videos</td></tr>
+          <tr><td>MOV</td><td>Apple</td><td>Excellent</td><td>macOS</td><td>Professional editing</td></tr>
+          <tr><td>WebM</td><td>Google</td><td>High</td><td>Browsers</td><td>HTML5 streaming</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="quiz-strip" data-quiz>
+    <div class="quiz-strip__title">Quick check — Multimedia File Formats</div>
+    <div class="quiz-strip__data" hidden>
+    [
+      {
+        "type": "mcq",
+        "prompt": "In a digital image, what is a pixel?",
+        "options": ["The smallest single point of a picture, holding its own colour value", "A unit of audio sampling", "A type of file compression", "A measurement of file size"],
+        "correctIndex": 0,
+        "explanation": "A pixel (picture element) is the smallest single point in a raster image; a full image is a grid of pixels, each carrying its own colour."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In standard 24-bit colour, each of the Red, Green and Blue channels for a pixel can take a value in which range?",
+        "options": ["0–9", "0–99", "0–255", "0–1000"],
+        "correctIndex": 2,
+        "explanation": "Each channel is stored in 8 bits, and 8 bits can represent 2⁸ = 256 distinct values, numbered 0 to 255. Combining three 8-bit channels (R, G, B) gives 24-bit colour and about 16.7 million possible colours."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which image file format is best known for lossless compression and support for transparency, commonly used for graphics and screenshots?",
+        "options": ["JPEG", "PNG", "MP3", "WAV"],
+        "correctIndex": 1,
+        "explanation": "PNG uses lossless compression (no quality loss) and supports a transparent background, which is why it's the common choice for screenshots, logos and graphics rather than photographs."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What does the 'sample rate' of a digital audio file measure?",
+        "options": ["How many times per second the sound wave's amplitude is measured and recorded", "The file's compression ratio", "The number of audio channels (mono/stereo)", "The colour depth of the recording"],
+        "correctIndex": 0,
+        "explanation": "Sample rate (e.g. 44,100 Hz for CD-quality audio) is how many times per second the analogue sound wave is measured and converted into a digital value. A higher sample rate captures the waveform more accurately."
+      }
+    ]
+    </div>
+    <div class="quiz-strip__questions"></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p>Chapter 2 — Data Representation. Study page for Plus One (Class XI) Computer Applications (Commerce), 2026 SCERT syllabus. Built as a static, dependency-free page (plain HTML/CSS/JS, no build step, no external services beyond web fonts) for fast, offline-friendly mobile revision.</p>
+</footer>
+</main>
+
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/quiz.js"></script>
+<script src="assets/js/base-converter.js"></script>
+<script src="assets/js/bit-flipper.js"></script>
+<script src="assets/js/binary-addition.js"></script>
+<script src="assets/js/ascii-lookup.js"></script>
+<script src="assets/js/rgb-grid.js"></script>
+</body>
+</html>
