@@ -510,6 +510,12 @@ select:focus-visible,
   padding: 0.3rem 0;
   border-bottom: 1px dashed var(--border);
   white-space: nowrap;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: ladder-in var(--transition-med) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .expansion__row { opacity: 1; transform: none; animation: none; }
 }
 .expansion__digit { color: var(--accent); font-weight: 700; }
 .expansion__contribution { margin-left: auto; color: var(--pulse); font-weight: 600; }
@@ -520,6 +526,12 @@ select:focus-visible,
   font-weight: 700;
   display: flex;
   justify-content: space-between;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: ladder-in var(--transition-med) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .expansion__total { opacity: 1; transform: none; animation: none; }
 }
 
 .result-banner {
@@ -573,6 +585,14 @@ select:focus-visible,
   border-color: var(--accent);
   color: #fff;
 }
+.bit-switch.is-flipping { animation: bit-flip 260ms ease; }
+@media (prefers-reduced-motion: reduce) { .bit-switch.is-flipping { animation: none; } }
+@keyframes bit-flip {
+  0% { transform: scale(1) rotateX(0deg); }
+  45% { transform: scale(1.12) rotateX(90deg); }
+  55% { transform: scale(1.12) rotateX(90deg); }
+  100% { transform: scale(1) rotateX(0deg); }
+}
 .bit-col--sign .bit-switch { border-color: var(--warn); }
 .bit-col--sign .bit-switch[data-on="1"] { background: var(--warn); border-color: var(--warn); }
 .bit-col__label { font-size: 0.6rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.03em; }
@@ -599,8 +619,15 @@ select:focus-visible,
   font-weight: 700;
   color: var(--pulse);
   transition: color var(--transition-fast);
+  display: inline-block;
+  animation: value-pulse 420ms ease both;
 }
 .decode-card__value--negative { color: var(--warn); }
+@media (prefers-reduced-motion: reduce) { .decode-card__value { animation: none; } }
+@keyframes value-pulse {
+  0% { transform: scale(1.22); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 1; }
+}
 .decode-card__breakdown { font-size: 0.78rem; color: var(--ink-soft); margin-top: 0.4em; line-height: 1.5; font-family: var(--font-mono); }
 .decode-card__note {
   margin-top: 0.5em;
@@ -640,12 +667,20 @@ select:focus-visible,
   min-height: 1.1em;
 }
 .add-grid__cell--carry.is-active {
-  animation: carry-pop var(--transition-med);
+  animation: carry-pop 420ms ease both;
 }
-@media (prefers-reduced-motion: reduce) { .add-grid__cell--carry.is-active { animation: none; } }
-@keyframes carry-pop { 0% { transform: translateY(4px) scale(0.8); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
 .add-grid__cell--op { color: var(--ink-faint); }
 .add-grid__row--result { border-top: 2px solid var(--ink); margin-top: 0.2rem; padding-top: 0.2rem; font-weight: 700; }
+.add-grid__row--result .add-grid__cell {
+  animation: carry-pop 420ms ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .add-grid__cell--carry.is-active,
+  .add-grid__row--result .add-grid__cell {
+    animation: none;
+  }
+}
+@keyframes carry-pop { 0% { transform: translateY(4px) scale(0.8); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
 .add-grid__cell--sum { color: var(--pulse); }
 .add-grid__cell--overflow { color: var(--warn); }
 
@@ -665,7 +700,7 @@ select:focus-visible,
   border-bottom: 1px solid var(--border);
 }
 .ascii-table td { padding: 0.4em 0.7em; border-bottom: 1px solid var(--border); }
-.ascii-table tbody tr { cursor: pointer; }
+.ascii-table tbody tr { cursor: pointer; transition: background-color var(--transition-fast); }
 .ascii-table tbody tr:hover, .ascii-table tbody tr:focus-within { background: var(--accent-soft); }
 .ascii-table tbody tr.is-selected { background: var(--pulse-soft); }
 .ascii-table .char-cell { font-size: 1rem; font-weight: 700; color: var(--accent); }
@@ -715,8 +750,11 @@ select:focus-visible,
   border: 2px solid var(--border-strong);
   cursor: pointer;
   min-height: 2.2rem;
+  transition: background-color var(--transition-med), border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 .pixel.is-selected { border-color: var(--ink); box-shadow: 0 0 0 3px var(--accent-soft); }
+.pixel:active { transform: scale(0.94); }
+.pixel-swatch { transition: background-color var(--transition-med); }
 .pixel-sliders { display: flex; flex-direction: column; gap: 0.6rem; }
 .slider-field { display: flex; align-items: center; gap: 0.7rem; }
 .slider-field label { width: 1.4rem; font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem; }

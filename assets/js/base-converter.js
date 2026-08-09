@@ -97,9 +97,10 @@
       }
 
       var conversion = DR.baseToDecimalSteps(raw, base);
-      conversion.breakdown.forEach(function (b) {
+      conversion.breakdown.forEach(function (b, i) {
         var row = document.createElement('div');
         row.className = 'expansion__row';
+        row.style.animationDelay = (i * 90) + 'ms';
         var digit = document.createElement('span');
         digit.className = 'expansion__digit';
         digit.textContent = b.digit;
@@ -116,6 +117,7 @@
 
       var totalRow = document.createElement('div');
       totalRow.className = 'expansion__total';
+      totalRow.style.animationDelay = (conversion.breakdown.length * 90) + 'ms';
       var totalLabel = document.createElement('span');
       totalLabel.textContent = 'Sum';
       var totalValue = document.createElement('span');

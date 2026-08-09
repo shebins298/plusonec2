@@ -40,11 +40,24 @@
       var width = r.width;
       var resultPadded = r.resultStr.padStart(width + 1, ' ');
 
+      // Columns are computed right-to-left (rightmost/LSB first), with the
+      // overflow bit appearing last of all. Stagger each cell's reveal to
+      // match that real computation order, so the carry visibly cascades
+      // leftward instead of the whole sum appearing at once.
+      var stepMs = 150;
+      function delayForDisplayIndex(displayIndex) {
+        if (displayIndex === 0) return width * stepMs; // overflow bit: last
+        var columnIndex = displayIndex - 1; // 0 = leftmost/MSB column
+        return (width - columnIndex - 1) * stepMs;
+      }
+
       var carryRow = makeRow();
       var overflowCarryCell = makeCell(r.finalCarry ? '1' : '', 'add-grid__cell--carry' + (r.finalCarry ? ' is-active' : ''));
+      overflowCarryCell.style.animationDelay = delayForDisplayIndex(0) + 'ms';
       carryRow.appendChild(overflowCarryCell);
-      r.columns.forEach(function (col) {
+      r.columns.forEach(function (col, j) {
         var cell = makeCell(col.carryIn ? '1' : '', 'add-grid__cell--carry' + (col.carryIn ? ' is-active' : ''));
+        cell.style.animationDelay = delayForDisplayIndex(j + 1) + 'ms';
         carryRow.appendChild(cell);
       });
 
@@ -59,7 +72,9 @@
       var resultRow = makeRow('add-grid__row--result');
       resultPadded.split('').forEach(function (d, i) {
         var isOverflowDigit = i === 0 && r.finalCarry;
-        resultRow.appendChild(makeCell(d === ' ' ? '' : d, 'add-grid__cell--sum' + (isOverflowDigit ? ' add-grid__cell--overflow' : '')));
+        var cell = makeCell(d === ' ' ? '' : d, 'add-grid__cell--sum' + (isOverflowDigit ? ' add-grid__cell--overflow' : ''));
+        cell.style.animationDelay = delayForDisplayIndex(i) + 'ms';
+        resultRow.appendChild(cell);
       });
 
       grid.appendChild(carryRow);

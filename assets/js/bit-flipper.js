@@ -7,6 +7,7 @@
     if (!bitRow || !decodeGrid) return;
 
     var bits = [1, 0, 1, 1, 0, 1, 0, 1]; // default: an arbitrary non-trivial pattern
+    var previousBits = bits.slice();
 
     function weightLabel(i) {
       if (i === 0) return 'sign';
@@ -25,11 +26,12 @@
 
         var btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'bit-switch';
+        btn.className = 'bit-switch' + (bit !== previousBits[i] ? ' is-flipping' : '');
         btn.dataset.on = String(bit);
         btn.textContent = String(bit);
         btn.setAttribute('aria-label', (i === 0 ? 'Sign bit' : 'Bit ' + (7 - i)) + ', currently ' + bit + '. Click to flip.');
         btn.addEventListener('click', function () {
+          previousBits = bits.slice();
           bits[i] = bits[i] === 1 ? 0 : 1;
           renderBits();
           renderDecode();
@@ -110,6 +112,7 @@
     var presetButtons = document.querySelectorAll('[data-preset]');
     Array.prototype.forEach.call(presetButtons, function (btn) {
       btn.addEventListener('click', function () {
+        previousBits = bits.slice();
         bits = btn.dataset.preset.split('').map(Number);
         renderBits();
         renderDecode();
